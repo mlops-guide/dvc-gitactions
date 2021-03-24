@@ -2,7 +2,6 @@ sklearn
 pandas
 seaborn
 matplotlib
-yaml
 joblib
 numpy
 importlib
