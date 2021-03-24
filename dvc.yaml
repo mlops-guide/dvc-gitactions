@@ -1,0 +1,30 @@
+stages:
+  preprocess:
+    cmd: python3 ./src/preprocess_data.py ./data/weatherAUS.csv
+    deps:
+    - ./src/preprocess_data.py
+    - data/weatherAUS.csv
+    outs:
+    - ./data/weatherAUS_processed.csv
+    - ./data/features.csv
+  train:
+    cmd: python3 ./src/train.py ./data/weatherAUS_processed.csv ./src/model.py 200
+    deps:
+    - ./data/weatherAUS_processed.csv
+    - ./src/model.py
+    - ./src/train.py
+    outs:
+    - ./models/model.joblib
+  evaluate:
+    cmd: python3 ./src/evaluate.py ./data/weatherAUS_processed.csv ./src/model.py ./models/model.joblib
+    deps:
+    - ./data/weatherAUS_processed.csv
+    - ./models/model.joblib
+    - ./src/evaluate.py
+    - ./src/model.py
+    outs:
+    - ./results/precision_recall_curve.png
+    - ./results/roc_curve.png
+    metrics:
+    - ./results/metrics.json:
+        cache: false

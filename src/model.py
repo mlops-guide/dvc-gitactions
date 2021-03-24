@@ -142,7 +142,7 @@ def evaluate(data, pipeline, OUTPUT_PATH, isDataFrame=False):
         plt.xlabel("Thresholds")
         plt.legend(loc="center left")
         plt.ylim([0, 1])
-        out_path = OUTPUT_PATH + "/precision_recall_cruve.png"
+        out_path = OUTPUT_PATH + "/precision_recall_curve.png"
         plt.savefig(out_path, dpi=80)
 
     plot_prc(
