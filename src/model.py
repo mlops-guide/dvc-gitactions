@@ -13,6 +13,7 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
+from xgboost import XGBClassifier
 import matplotlib.pyplot as plt
 
 
@@ -29,20 +30,8 @@ def train(data, num_estimators, isDataFrame=False):
         X, y, test_size=0.3, random_state=0
     )
 
-    pipe = Pipeline(
-        [
-            ("scaler", StandardScaler()),
-            (
-                "RFC",
-                RandomForestClassifier(
-                    criterion="gini",
-                    max_depth=10,
-                    max_features="auto",
-                    n_estimators=num_estimators,
-                ),
-            ),
-        ]
-    )
+    pipe = Pipeline([('scaler', StandardScaler()), ('XGB', XGBClassifier())])
+
 
     training_logs = pipe.fit(X_train, y_train)
 
