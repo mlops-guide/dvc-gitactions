@@ -4,4 +4,3 @@ seaborn
 matplotlib
 joblib
 numpy
-json
