@@ -1,4 +1,4 @@
-python-sklearn
+sklearn==0.21.3
 pandas
 seaborn
 matplotlib
