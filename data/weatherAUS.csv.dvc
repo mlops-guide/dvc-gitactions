@@ -1,0 +1,4 @@
+outs:
+- md5: a65cf8b8719b1a65db4f361eeec18457
+  size: 14094055
+  path: weatherAUS.csv

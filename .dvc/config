@@ -1,0 +1,5 @@
+[core]
+    remote = remote-storage
+['remote "remote-storage"']
+    url = s3://wine-bucket-test/rain_australia/
+    endpointurl = https://s3.us-south.cloud-object-storage.appdomain.cloud
