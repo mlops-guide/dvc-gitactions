@@ -3,6 +3,7 @@ import importlib.util
 import pickle
 import os
 import json
+
 # from sklearn.externals import joblib
 import joblib
 
@@ -15,11 +16,13 @@ PICKLE_PATH = sys.argv[3]
 
 sys.path.insert(1, MODEL_PATH)
 
+
 def module_from_file(module_name, file_path):
     spec = importlib.util.spec_from_file_location(module_name, file_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
 
 model = module_from_file("model", MODEL_PATH)
 

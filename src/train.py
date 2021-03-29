@@ -3,8 +3,10 @@ import importlib.util
 import pickle
 import os
 import json
+
 # import sklearn.external.joblib as extjoblib
 import joblib
+
 DATA_PATH = os.path.abspath(sys.argv[1])
 # PROJ_PATH = os.path.abspath(sys.argv[2])
 # MODEL_PATH = PROJ_PATH+"/src/model.py"
@@ -33,8 +35,7 @@ if __name__ == "__main__":
     # if sys.argv[4]:
     # with open("./models/model.pkl", "wb") as file:
     #     pickle.dump(pipeline[0], file)
-    joblib.dump(pipeline, './models/model.joblib')
-
+    joblib.dump(pipeline, "./models/model.joblib")
 
     # log_eval = model.evaluate(DATA_PATH, pipeline, "./results")
 
