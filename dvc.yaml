@@ -1,4 +1,6 @@
 stages:
+  std_check:
+    cmd: src/scripts/Scripts/std_check.sh ./
   preprocess:
     cmd: python3 ./src/preprocess_data.py ./data/weatherAUS.csv
     deps:

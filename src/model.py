@@ -13,8 +13,8 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
-from xgboost import XGBClassifier
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
 
 
 def train(data, num_estimators, isDataFrame=False):
@@ -30,8 +30,12 @@ def train(data, num_estimators, isDataFrame=False):
         X, y, test_size=0.3, random_state=0
     )
 
-    pipe = Pipeline([('scaler', StandardScaler()), ('XGB', XGBClassifier())])
-
+    pipe = Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            ("LR", LogisticRegression(random_state=0, max_iter=num_estimators)),
+        ]
+    )
 
     training_logs = pipe.fit(X_train, y_train)
 
