@@ -6,6 +6,13 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.model_selection import cross_val_score
 from ibm_watson_machine_learning import APIClient
+from sklearn.model_selection import train_test_split
+
+"""
+    Usage:
+        python3 model_deployed_validate_pipeline.py path/to/data.csv  ../../credentials.yaml path/to/project/
+
+"""
 
 DATA_PATH = os.path.abspath(sys.argv[1])
 CRED_PATH = os.path.abspath(sys.argv[2])
@@ -20,10 +27,19 @@ def main():
         except yaml.YAMLError as exc:
             print(exc)
 
+    with open(META_PATH) as stream:
+        try:
+            metadata = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+
     data = pd.read_csv(DATA_PATH)
 
     X = data.iloc[:, :-1]
     y = data[data.columns[-1]]
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=0
+    )
 
     wml_credentials = {"url": credentials["url"], "apikey": credentials["apikey"]}
 
@@ -31,15 +47,22 @@ def main():
     client.spaces.list()
 
     SPACE_ID = credentials["space_id"]
-    DEPLOYMENT_UID = input("DEPLOYMENT UID: ")
+
+    if "deployment_uid" in metadata.keys():
+        DEPLOYMENT_UID = metadata["deployment_uid"]
+        print("\nExtracting DEPLOYMENT UID from metadata file\n")
+
+    else:
+        DEPLOYMENT_UID = input("DEPLOYMENT UID: ")
 
     client.set.default_space(SPACE_ID)
 
-    # deployment_uid = client.deployments.get_uid(DEPLOYMENT_UID)
-
     payload = {
         "input_data": [
-            {"fields": X.columns.to_numpy().tolist(), "values": X.to_numpy().tolist()}
+            {
+                "fields": X.columns.to_numpy().tolist(),
+                "values": X_test.to_numpy().tolist(),
+            }
         ]
     }
     result = client.deployments.score(DEPLOYMENT_UID, payload)
@@ -53,7 +76,7 @@ def main():
 
         return {"cm": cm, "acc": acc}
 
-    eval = comb_eval(y, y_pred_values)
+    eval = comb_eval(y_test, y_pred_values)
     print(eval)
 
     return eval

@@ -5,6 +5,12 @@ import yaml
 import joblib
 from ibm_watson_machine_learning import APIClient
 
+"""
+    Usage:
+        python3 model_deploy_pipeline.py ./pickle_model ../path/to/project/ ../credentials.yaml
+
+"""
+
 MODEL_PATH = os.path.abspath(sys.argv[1])
 PROJ_PATH = os.path.abspath(sys.argv[2])
 CRED_PATH = os.path.abspath(sys.argv[3])
@@ -60,3 +66,11 @@ deployment = client.deployments.create(
     artifact_uid=model_uid,
     meta_props=deployment_props,
 )
+
+deployment_uid = client.deployments.get_uid(deployment)
+
+metadata["model_uid"] = model_uid
+metadata["deployment_uid"] = deployment_uid
+
+f = open(META_PATH, "w+")
+yaml.dump(metadata, f, allow_unicode=True)
