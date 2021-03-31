@@ -11,7 +11,7 @@ jobs:
   steps:
     - uses: actions/checkout@v2
     - name: 'Deploy/Update on new release'
-    - shell: bash
+    shell: bash
 
     env:
       repo_token: ${{ secrets.GITHUB_TOKEN }}
