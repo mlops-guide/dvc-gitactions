@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if  python3 ./src/scripts/Pipelines/git_release_pipeline.py ./
+if  ! python3 ./src/scripts/Pipelines/git_release_pipeline.py ./
 then 
     echo "      Model already has been deployed, updating it"
     python3 ./src/scripts/Pipelines/model_update_pipeline.py ./models/model.joblib ./ ./credentials.yaml
