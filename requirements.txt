@@ -4,3 +4,4 @@ seaborn
 matplotlib
 joblib
 numpy
+ibm_watson_machine_learning
