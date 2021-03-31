@@ -1,6 +1,8 @@
 # DVC CI/CD MLOps Pipeline
 MLOps pipeline with DVC and CML using Github Actions and IBM Cloud
 
+[![model-deploy-on-release](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/deploy_on_release.yaml/badge.svg)](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/deploy_on_release.yaml)
+
 #### Requirements
 * DVC
 * Python3 and pip
