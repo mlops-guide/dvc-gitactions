@@ -1,22 +1,22 @@
 --- 
 repos:
 -
+  repo: https://github.com/ambv/black
+  rev: 20.8b1
   hooks: 
     - 
       id: black
       language_version: python3
-  repo: https://github.com/ambv/black
-  rev: 20.8b1
-- 
-  hooks: 
-    - 
-      entry: "bash -c 'pytest'"
-      id: pytest-check
-      language: system
-      name: pytest-check
-      pass_filenames: false
-      always_run: true
-  repo: local
-
+  
+-   repo: local
+    hooks:
+    -   id: run-tests
+        name: run tests
+        entry: pytest
+        language: python
+        additional_dependencies: [pre-commit, pytest]
+        always_run: true
+        pass_filenames: false
+  
 
   
