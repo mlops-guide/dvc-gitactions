@@ -2,7 +2,7 @@ name: model-deploy-on-release
 on:
   release:
     types: 
-      - 'published'
+      - 'created'
 
 jobs:
   run:
