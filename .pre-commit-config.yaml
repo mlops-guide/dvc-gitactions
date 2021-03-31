@@ -1,0 +1,9 @@
+--- 
+- 
+  hooks: 
+    - 
+      entry: "bash -c 'pytest'"
+      id: pytest-check
+      language: system
+      name: pytest-check
+  repo: local
