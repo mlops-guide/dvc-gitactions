@@ -1,7 +1,9 @@
 # 🧬 DVC CI/CD MLOps Pipeline
 MLOps pipeline with DVC and CML using Github Actions and IBM Cloud
+[![model-deploy-on-release](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/deploy_on_release.yaml/badge.svg)](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/deploy_on_release.yaml)
 
 ## 📋 Requirements
+
 * DVC
 * Python3 and pip
 * Access to IBM Cloud Object Storage (IBM's equivalent to AWS S3)
@@ -22,7 +24,9 @@ aws_access_key_id = {{Key ID}}
 aws_secret_access_key = {{Access Key}}
 ```
 
+
 ### ✅ Pre-commit Testings
+
 In order to activate pre-commit testing you need ```pre-commit```
 
 Installing pre-commit with pip
@@ -46,7 +50,6 @@ pytest-check.............................................................Passed
 ```
 
 
-
 ### ⚗️ Using DVC
 
 Download data from the DVC repository(analog to ```git pull```)
@@ -58,6 +61,7 @@ Reproduces the pipeline using DVC
 ```
 dvc repro
 ```
+
 
 ### ⚙️ DVC Pipelines
 

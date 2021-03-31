@@ -3,18 +3,14 @@ import importlib.util
 import pickle
 import os
 import json
+import joblib
 
 # import sklearn.external.joblib as extjoblib
-import joblib
 
 DATA_PATH = os.path.abspath(sys.argv[1])
 # PROJ_PATH = os.path.abspath(sys.argv[2])
-# MODEL_PATH = PROJ_PATH+"/src/model.py"
 MODEL_PATH = sys.argv[2]
 PARAM = int(sys.argv[3])
-
-# if sys.argv[4]:
-#     OUTPUT_PATH = sys.argv[4]
 
 sys.path.insert(1, MODEL_PATH)
 
