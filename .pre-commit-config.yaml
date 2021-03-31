@@ -14,6 +14,8 @@ repos:
       id: pytest-check
       language: system
       name: pytest-check
+      pass_filenames: false
+      always_run: true
   repo: local
 
 
