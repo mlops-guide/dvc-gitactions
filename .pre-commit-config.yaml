@@ -12,7 +12,7 @@ repos:
     hooks:
     -   id: python-tests
         name: pytests
-        entry: pytest
+        entry: pytest src/tests
         language: python
         additional_dependencies: [pre-commit, pytest]
         always_run: true
