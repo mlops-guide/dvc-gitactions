@@ -5,7 +5,8 @@ on:
       - 'published'
 
 jobs:
-  runs-on: [ubuntu-latest]
+  runs-on: 
+    - 'ubuntu-latest'
   container: docker://dvcorg/cml-py3:latest
 
   steps:
