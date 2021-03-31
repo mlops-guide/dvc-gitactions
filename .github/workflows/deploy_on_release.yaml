@@ -1,8 +1,7 @@
 name: model-deploy-on-release
-on: 
-release:
-    types: # This configuration does not affect the page_build event above
-      - created
+on:
+  release:
+    types: [published]
     runs-on: [ubuntu-latest]
     container: docker://dvcorg/cml-py3:latest
     steps:
