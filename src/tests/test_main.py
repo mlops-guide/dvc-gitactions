@@ -1,3 +1,5 @@
+# General tests that comprehend general aspects of the code
+
 import pytest
 
 
@@ -6,4 +8,4 @@ def capital_case(x):
 
 
 def test_capital_case():
-    assert capital_case('semaphore') == 'Semaphore'
+    assert capital_case("semaphore") == "Semaphore"

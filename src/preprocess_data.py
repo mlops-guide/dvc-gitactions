@@ -1,21 +1,28 @@
 import os
 import sys
-import numpy as np
-from numpy import array
 import pandas as pd
 from sklearn import preprocessing
+
+
+def count_nulls_by_line(df):
+    return df.isnull().sum().sort_values(ascending=False)
+
+
+def null_percent_by_line(df):
+    return (df.isnull().sum() / df.isnull().count()).sort_values(ascending=False)
 
 
 def preprocess_data(DATA_PATH):
     df = pd.read_csv(DATA_PATH)
 
-    zeros_cnt = df.isnull().sum().sort_values(ascending=False)
-    percent_zeros = (df.isnull().sum() /
-                     df.isnull().count()).sort_values(ascending=False)
+    zeros_cnt = count_nulls_by_line(df)
+    # df.isnull().sum().sort_values(ascending=False)
+    percent_zeros = null_percent_by_line(df)
+    # (df.isnull().sum() / df.isnull().count()).sort_values(ascending=False)
 
-    missing_data = pd.concat([zeros_cnt, percent_zeros],
-                             axis=1,
-                             keys=["Total", "Percent"])
+    missing_data = pd.concat(
+        [zeros_cnt, percent_zeros], axis=1, keys=["Total", "Percent"]
+    )
 
     dropList = list(missing_data[missing_data["Percent"] > 0.15].index)
 
@@ -23,8 +30,7 @@ def preprocess_data(DATA_PATH):
     df.drop(["Date"], axis=1, inplace=True)
     df.drop(["Location"], axis=1, inplace=True)
 
-    ohe = pd.get_dummies(data=df,
-                         columns=["WindGustDir", "WindDir9am", "WindDir3pm"])
+    ohe = pd.get_dummies(data=df, columns=["WindGustDir", "WindDir9am", "WindDir3pm"])
 
     ohe["RainToday"] = df["RainToday"].astype(str)
     ohe["RainTomorrow"] = df["RainTomorrow"].astype(str)
