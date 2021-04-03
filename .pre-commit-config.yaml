@@ -14,7 +14,7 @@ repos:
         name: pytests
         entry: pytest src/tests
         language: python
-        additional_dependencies: [pre-commit, pytest, pandas, sklearn]
+        additional_dependencies: [pre-commit, pytest, pandas, sklearn, matplotlib]
         always_run: true
         pass_filenames: false
   

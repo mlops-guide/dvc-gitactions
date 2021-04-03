@@ -16,14 +16,24 @@ from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
 
 
+def get_variables(data, column):
+    # Seperating the dependant and independant variables
+    y = data[column]
+    X = data.drop([column], axis=1)
+
+    return X, y
+
+
 def train(data, num_estimators, isDataFrame=False):
 
     if not isDataFrame:
         data = pd.read_csv(data)
 
     # Seperating the dependant and independant variables
-    y = data["RainTomorrow"]
-    X = data.drop(["RainTomorrow"], axis=1)
+    # y = data["RainTomorrow"]
+    # X = data.drop(["RainTomorrow"], axis=1)
+
+    X, y = get_variables(data, "RainTomorrow")
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.3, random_state=0

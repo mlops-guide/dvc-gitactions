@@ -1,0 +1,3 @@
+MinTemp,MaxTemp,Rainfall,WindGustSpeed,WindSpeed9am,WindSpeed3pm,Humidity9am,Humidity3pm,Pressure9am,Pressure3pm,Temp9am,Temp3pm,RainToday,WindGustDir_W,WindGustDir_WNW,WindDir9am_NNW,WindDir9am_W,WindDir3pm_WNW,WindDir3pm_WSW,RainTomorrow
+13.4,22.9,0.6,44,20,24,71,22,1007.7,1007.1,16.9,21.8,0,1,0,0,1,1,0,0
+7.4,25.1,0.0,44,4,22,44,25,1010.6,1007.8,17.2,24.3,0,0,1,1,0,0,1,0
