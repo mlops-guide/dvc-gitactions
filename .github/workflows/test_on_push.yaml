@@ -26,4 +26,4 @@ jobs:
         pytest
     - name: Python Black
       run: |
-        black .
+        black . --check
