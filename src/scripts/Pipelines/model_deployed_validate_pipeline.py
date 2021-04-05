@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 
 """
     Usage:
-        python3 model_deployed_validate_pipeline.py path/to/data.csv  ../../credentials.yaml path/to/project/
+        python3 model_deployed_validate_pipeline.py ../../ ../../credentials.yaml path/to/project/
 
 """
 
