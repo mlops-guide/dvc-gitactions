@@ -186,4 +186,3 @@ scoring_response = wml_client.deployments.score(DEPLOYMENT_UID, payload_scoring)
 
 time.sleep(10)
 subscription.payload_logging.get_records_count()
-
