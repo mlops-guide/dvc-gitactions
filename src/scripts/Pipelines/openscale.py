@@ -14,7 +14,13 @@ import json
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import numpy as np
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import (
+    confusion_matrix,
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+)
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson_openscale import *
 from ibm_watson_openscale.supporting_classes.enums import *
@@ -56,7 +62,7 @@ if WOS_GUID is None:
     print("Watson OpenScale GUID NOT FOUND")
 else:
     print(WOS_GUID)
-    
+
 ai_client = APIClient(aios_credentials=WOS_CREDENTIALS)
 print(ai_client.version)
 
@@ -74,9 +80,8 @@ wml_client.set.default_space("16148a4d-9055-4220-af26-0c0369cdf31a")
 
 authenticator = IAMAuthenticator(apikey=credentials["apikey"])
 wos_client = ibm_watson_openscale.APIClient(
-    authenticator=authenticator, 
-    service_url="https://api.aiopenscale.cloud.ibm.com")
-
+    authenticator=authenticator, service_url="https://api.aiopenscale.cloud.ibm.com"
+)
 
 
 KEEP_MY_INTERNAL_POSTGRES = True
@@ -153,19 +158,24 @@ subscriptions_uids = ai_client.data_mart.subscriptions.get_uids()
 subscription = None
 
 if subscription is None:
-    print('Subscription already exists; get the existing one')
+    print("Subscription already exists; get the existing one")
     subscriptions_uids = ai_client.data_mart.subscriptions.get_uids()
 
     for sub in subscriptions_uids:
-        if ai_client.data_mart.subscriptions.get_details(sub)['entity']['asset']['name'] == MODEL_NAME:
+        if (
+            ai_client.data_mart.subscriptions.get_details(sub)["entity"]["asset"][
+                "name"
+            ]
+            == MODEL_NAME
+        ):
             subscription = ai_client.data_mart.subscriptions.get(sub)
 
 
-for deployment in wml_client.deployments.get_details()['resources']:
-    if DEPLOYMENT_UID in deployment['metadata']['id']:
+for deployment in wml_client.deployments.get_details()["resources"]:
+    if DEPLOYMENT_UID in deployment["metadata"]["id"]:
 
-        scoring_endpoint = deployment['entity']['status']['online_url']['url']
-        
+        scoring_endpoint = deployment["entity"]["status"]["online_url"]["url"]
+
 print(scoring_endpoint)
 
 
@@ -180,9 +190,15 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # Payload Logging DAtASET
 
-payload_data_set_id = wos_client.data_sets.list(type=DataSetTypes.PAYLOAD_LOGGING, 
-                                                target_target_id=subscription_id, 
-                                                target_target_type=TargetTypes.SUBSCRIPTION).result.data_sets[0].metadata.id
+payload_data_set_id = (
+    wos_client.data_sets.list(
+        type=DataSetTypes.PAYLOAD_LOGGING,
+        target_target_id=subscription_id,
+        target_target_type=TargetTypes.SUBSCRIPTION,
+    )
+    .result.data_sets[0]
+    .metadata.id
+)
 print("Payload data set id:", payload_data_set_id)
 
 
@@ -197,31 +213,36 @@ payload_scoring = {
 
 scoring_response = wml_client.deployments.score(DEPLOYMENT_UID, payload_scoring)
 
-print('Logging')
-records = [PayloadRecord(request=payload_scoring, response=scoring_response, response_time=72)]
-store_record_info = wos_client.data_sets.store_records(payload_data_set_id,records)
+print("Logging")
+records = [
+    PayloadRecord(request=payload_scoring, response=scoring_response, response_time=72)
+]
+store_record_info = wos_client.data_sets.store_records(payload_data_set_id, records)
 
 
 # Feedback Logging
 
-feedback_dataset = wos_client.data_sets.list(type=DataSetTypes.FEEDBACK, 
-                                                target_target_id=subscription_id, 
-                                                target_target_type=TargetTypes.SUBSCRIPTION).result
+feedback_dataset = wos_client.data_sets.list(
+    type=DataSetTypes.FEEDBACK,
+    target_target_id=subscription_id,
+    target_target_type=TargetTypes.SUBSCRIPTION,
+).result
 
 feedback_dataset_id = feedback_dataset.data_sets[0].metadata.id
 if feedback_dataset_id is None:
     print("Feedback data set not found. Please check quality monitor status.")
     sys.exit(1)
 
-data = X_test.to_dict('records')
+data = X_test.to_dict("records")
 
 wos_client.data_sets.store_records(
-    feedback_dataset_id, 
-    request_body=data, 
+    feedback_dataset_id,
+    request_body=data,
     background_mode=False,
     header=True,
-    delimiter=',',
-    csv_max_line_length=1000)
+    delimiter=",",
+    csv_max_line_length=1000,
+)
 
 print(wos_client.data_sets.get_records_count(data_set_id=feedback_dataset_id))
 
@@ -231,32 +252,40 @@ print(wos_client.data_sets.get_records_count(data_set_id=feedback_dataset_id))
 
 from ibm_watson_openscale.supporting_classes.enums import *
 
-print('\nData marts: ')
+print("\nData marts: ")
 datams = wos_client.data_marts.list().result.data_marts
 for d in datams:
     print(d.metadata.id)
 datamart_id = d.metadata.id
 
-print('\nService providers: ')
+print("\nService providers: ")
 services = wos_client.service_providers.list().result.service_providers
 for service in services:
-    print(service.metadata.id+" / Name: "+service.entity.name)
+    print(service.metadata.id + " / Name: " + service.entity.name)
 service_id = service.metadata.id
 
-#wos_client.subscriptions.show()
-#wos_client.data_sets.show()
+# wos_client.subscriptions.show()
+# wos_client.data_sets.show()
 
-print('\nSubscriptions: ')
-subscriptions = wos_client.subscriptions.list(data_mart_id=datamart_id, service_provider_id=service_id).result.subscriptions
+print("\nSubscriptions: ")
+subscriptions = wos_client.subscriptions.list(
+    data_mart_id=datamart_id, service_provider_id=service_id
+).result.subscriptions
 for s in subscriptions:
-  print(s.metadata.id+"   "+s.entity.asset.name)
+    print(s.metadata.id + "   " + s.entity.asset.name)
 subscription_id = s.metadata.id
 
-print('\n')
+print("\n")
 
-payload_data_set_id = wos_client.data_sets.list(type=DataSetTypes.PAYLOAD_LOGGING, 
-                                                target_target_id=subscription_id, 
-                                                target_target_type=TargetTypes.SUBSCRIPTION).result.data_sets[0].metadata.id
+payload_data_set_id = (
+    wos_client.data_sets.list(
+        type=DataSetTypes.PAYLOAD_LOGGING,
+        target_target_id=subscription_id,
+        target_target_type=TargetTypes.SUBSCRIPTION,
+    )
+    .result.data_sets[0]
+    .metadata.id
+)
 print("Payload data set id:", payload_data_set_id)
 
 
@@ -266,33 +295,25 @@ if pl_records_count == 0:
     raise Exception("Payload logging did not happen!")
 
 
-
 # Create Monitor
 
 target = ibm_watson_openscale.base_classes.watson_open_scale_v2.Target(
-            target_type=TargetTypes.SUBSCRIPTION,
-            target_id=subscription.uid
-        )
-parameters =  {
-            "min_feedback_data_size": 200
-        }
-thresholds =  [{
-        "metric_id": "area_under_roc",
-        "type": "lower_limit",
-        "value": 0.75
-    }]
+    target_type=TargetTypes.SUBSCRIPTION, target_id=subscription.uid
+)
+parameters = {"min_feedback_data_size": 200}
+thresholds = [{"metric_id": "area_under_roc", "type": "lower_limit", "value": 0.75}]
 wos_client.monitor_instances.create(
-        data_mart_id=datamart_id,
-        background_mode=False,
-        monitor_definition_id=wos_client.monitor_definitions.MONITORS.QUALITY.ID,
-        target=target,
-        parameters=parameters,
-        thresholds=thresholds
+    data_mart_id=datamart_id,
+    background_mode=False,
+    monitor_definition_id=wos_client.monitor_definitions.MONITORS.QUALITY.ID,
+    target=target,
+    parameters=parameters,
+    thresholds=thresholds,
 )
 
 monitor_instances_info = wos_client.monitor_instances.show(
     data_mart_id=datamart_id,
-     )
+)
 
 
 # wos_client.monitor_instances.delete(
@@ -301,6 +322,5 @@ monitor_instances_info = wos_client.monitor_instances.show(
 #      )
 
 monitor_instance_run_info = wos_client.monitor_instances.run(
-        background_mode=False,
-        monitor_instance_id='5ddff093-25fa-44f8-abae-fd29659fd0d0'
-     )
+    background_mode=False, monitor_instance_id="5ddff093-25fa-44f8-abae-fd29659fd0d0"
+)
