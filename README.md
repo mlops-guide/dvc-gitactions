@@ -5,6 +5,12 @@ MLOps pipeline with DVC and CML using Github Actions and IBM Cloud
 [![model-deploy-on-release](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/deploy_on_release.yaml/badge.svg)](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/deploy_on_release.yaml)
 [![Python Package and Test](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/test_on_push.yaml/badge.svg)](https://github.com/MLOPsStudyGroup/dvc-gitactions/actions/workflows/test_on_push.yaml)
 
+- [X] Data Versioning: DVC
+- [X] CI/CD: Unit testing with Pytest, pre-commit and Github Actions
+- [X] CML: Continuous Machine Learning and Github Actions
+- [X] Deploy on release: Github Actions and IBM Watson
+- [ ] Monitoring: OpenScale
+
 ## 📋 Requirements
 
 * DVC
