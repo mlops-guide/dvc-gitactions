@@ -103,3 +103,21 @@ dvc run -n evaluate -d ./src/evaluate.py -d ./data/weatherAUS_processed.csv \
 python3 ./src/evaluate.py ./data/weatherAUS_processed.csv ./src/model.py ./models/model.joblib
 ```
 
+### 🐙 Git Actions
+🔐 IBM Credentials
+
+
+Fill the ```credentials_example.yaml``` file and rename it to ```credentials.yaml``` to be able to run the scripts that require IBM keys. ⚠️ Never upload this file to GitHub!
+
+To use Git Actions to deploy your model, you'll need to encrypt it, to do that run the command bellow and choose a strong password.
+
+```
+gpg --symmetric --cipher-algo AES256 credentials.yaml 
+```
+Now in the GitHub page for the repository, go to ```Settings->Secrets``` and add the keys to the following secrets:
+
+```
+AWS_ACCESS_KEY_ID (Bucket Credential)
+AWS_SECRET_ACCESS_KEY (Bucket Credential)
+IBM_CREDENTIALS_PASS (password for the encrypted file)
+```
