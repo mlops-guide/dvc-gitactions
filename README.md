@@ -7,6 +7,7 @@ MLOps pipeline with DVC and CML using Github Actions and IBM Cloud
 
 ## 🔰 Milestones
 - [X] Data Versioning: DVC
+- [X] Machine Learning Pipeline: DVC Pipeline (preprocess, train, evaluate)
 - [X] CI/CD: Unit testing with Pytest, pre-commit and Github Actions
 - [X] CML: Continuous Machine Learning and Github Actions
 - [X] Deploy on release: Github Actions and IBM Watson
