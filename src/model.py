@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score, f1_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
@@ -42,15 +43,7 @@ def train(data, num_estimators, isDataFrame=False):
     pipe = Pipeline(
         [
             ("scaler", StandardScaler()),
-            (
-                "RFC",
-                RandomForestClassifier(
-                    criterion="gini",
-                    max_depth=10,
-                    max_features="auto",
-                    n_estimators=num_estimators,
-                ),
-            ),
+            ("LR", LogisticRegression(random_state=0, max_iter=num_estimators)),
         ]
     )
 

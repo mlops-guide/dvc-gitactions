@@ -204,10 +204,7 @@ print("Payload data set id:", payload_data_set_id)
 
 payload_scoring = {
     "input_data": [
-        {
-            "fields": X.columns.to_numpy().tolist(),
-            "values": X_test.to_numpy().tolist(),
-        }
+        {"fields": X.columns.to_numpy().tolist(), "values": X_test.to_numpy().tolist()}
     ]
 }
 
@@ -311,9 +308,7 @@ wos_client.monitor_instances.create(
     thresholds=thresholds,
 )
 
-monitor_instances_info = wos_client.monitor_instances.show(
-    data_mart_id=datamart_id,
-)
+monitor_instances_info = wos_client.monitor_instances.show(data_mart_id=datamart_id)
 
 
 # wos_client.monitor_instances.delete(

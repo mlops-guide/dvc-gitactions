@@ -39,25 +39,25 @@ def test_null_percent():
     assert preprocess_data.null_percent_by_line(data).to_list() == [0.5, 0]
 
 
-@pytest.mark.dependency()
-def test_preprocess():
-    # Checks if running the preprocess function returns an error
-    preprocess_data.preprocess_data(DATA_PATH)
+# @pytest.mark.dependency()
+# def test_preprocess():
+#     # Checks if running the preprocess function returns an error
+#     preprocess_data.preprocess_data(DATA_PATH)
 
 
-@pytest.mark.dependency(depends=["test_preprocess"])
-def test_processed_file_created():
-    #  Checks if the processed file was created during test_preprocess() and is accessible
-    f = open(PROCESSED_DATA_PATH)
+# @pytest.mark.dependency(depends=["test_preprocess"])
+# def test_processed_file_created():
+#     #  Checks if the processed file was created during test_preprocess() and is accessible
+#     f = open(PROCESSED_DATA_PATH)
 
 
-@pytest.mark.dependency(depends=["test_processed_file_created"])
-def test_processed_file_format():
-    # Checks if the processed file is in  the correct format (.csv) and can be transformed in dataframe
-    try:
-        pd.read_csv(PROCESSED_DATA_PATH)
-    except:
-        raise RuntimeError("Unable to open " + PROCESSED_DATA_PATH + " as dataframe")
+# @pytest.mark.dependency(depends=["test_processed_file_created"])
+# def test_processed_file_format():
+#     # Checks if the processed file is in  the correct format (.csv) and can be transformed in dataframe
+#     try:
+#         pd.read_csv(PROCESSED_DATA_PATH)
+#     except:
+#         raise RuntimeError("Unable to open " + PROCESSED_DATA_PATH + " as dataframe")
 
 
 @pytest.fixture(scope="session", autouse=True)

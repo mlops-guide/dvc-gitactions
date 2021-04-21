@@ -63,8 +63,7 @@ deployment_props = {
 }
 
 deployment = client.deployments.create(
-    artifact_uid=model_uid,
-    meta_props=deployment_props,
+    artifact_uid=model_uid, meta_props=deployment_props
 )
 
 deployment_uid = client.deployments.get_uid(deployment)

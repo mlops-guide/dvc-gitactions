@@ -48,7 +48,7 @@ PROCESSED_DATA_PATH = (
                 "WindDir3pm_WSW": {0: 0, 1: 1},
             },
             [0, 0],
-        ),
+        )
     ],
 )
 def test_get_variables(expected_X, expected_y):
