@@ -4,8 +4,8 @@ stages:
     cmd: python3 ./src/preprocess_data.py ./data/weatherAUS.csv
     deps:
     - path: ./src/preprocess_data.py
-      md5: cf07f4995cc645b222fba41c622bad8d
-      size: 1408
+      md5: b5e571f866aa8993ad3bb844594e112e
+      size: 1909
     - path: data/weatherAUS.csv
       md5: a65cf8b8719b1a65db4f361eeec18457
       size: 14094055
@@ -23,15 +23,15 @@ stages:
       md5: 59e89e62fb8f9face4901630d1de3e16
       size: 19507550
     - path: ./src/model.py
-      md5: 260904955bdf53e03a72aa2a45fa0297
-      size: 4451
+      md5: 895596132410cf7e581953ecbdc9b44d
+      size: 4485
     - path: ./src/train.py
       md5: 1b5c6c1786d40c9505b2261f11a3b274
       size: 1002
     outs:
     - path: ./models/model.joblib
-      md5: 6e7186e0d9e5026be46572e2cb02ca06
-      size: 16869560
+      md5: 8cf64091db28e29b327baf946a796f27
+      size: 3275
   evaluate:
     cmd: python3 ./src/evaluate.py ./data/weatherAUS_processed.csv ./src/model.py
       ./models/model.joblib
@@ -40,23 +40,23 @@ stages:
       md5: 59e89e62fb8f9face4901630d1de3e16
       size: 19507550
     - path: ./models/model.joblib
-      md5: 6e7186e0d9e5026be46572e2cb02ca06
-      size: 16869560
+      md5: 8cf64091db28e29b327baf946a796f27
+      size: 3275
     - path: ./src/evaluate.py
       md5: 7e466368d793d09316fc1e078111a9de
       size: 882
     - path: ./src/model.py
-      md5: 260904955bdf53e03a72aa2a45fa0297
-      size: 4451
+      md5: 895596132410cf7e581953ecbdc9b44d
+      size: 4485
     outs:
     - path: ./results/metrics.json
-      md5: af950439e97764b5bf7f91322f6aa8bf
+      md5: 17cacf1c4e374794927b5bc143016e23
       size: 120
     - path: ./results/precision_recall_curve.png
-      md5: 9b817eb824b73c484bde8060fa01507a
-      size: 17106
+      md5: bf5e1f1911560127be04aae88977b7a4
+      size: 17045
     - path: ./results/roc_curve.png
-      md5: 7530a23497d03b976795542f5dd4762f
-      size: 19956
+      md5: 77346f3a6fb9f23410af073ac1670898
+      size: 19933
   std_check:
     cmd: src/scripts/Scripts/std_check.sh ./
