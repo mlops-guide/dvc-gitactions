@@ -1,5 +1,5 @@
 scikit-learn>=0.23
-dvc
+dvc[s3]
 pandas
 seaborn
 matplotlib
