@@ -19,7 +19,7 @@ MLOps pipeline with DVC and CML using Github Actions and IBM Cloud
 
 * DVC
 * Python3 and pip
-* Access to IBM Cloud Object Storage (IBM's equivalent to AWS S3)
+* Access to IBM Cloud Object Storage
 
 ## 🏃🏻 Running Project
 
