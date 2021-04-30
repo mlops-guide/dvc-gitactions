@@ -26,7 +26,7 @@ MLOps pipeline with DVC and CML using Github Actions and IBM Cloud
 ### 🔑 Setup IBM Bucket Credentials
 
 #### MacOS
-Setup your credentials on ```~/.aws/credentials``` and ```~/.aws/config```. DVC works perfectly with IBM Obejct Storage, although it uses de AWS template for the S3, you can also see this in other portions of the repository.
+Setup your credentials on ```~/.aws/credentials``` and ```~/.aws/config```. DVC works perfectly with IBM Obejct Storage, although it uses S3 protocol, you can also see this in other portions of the repository.
 
 
 ~/.aws/credentials
