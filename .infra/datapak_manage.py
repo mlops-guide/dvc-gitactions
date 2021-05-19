@@ -112,14 +112,19 @@ if __name__ == "__main__":
             infos = terraform_output()
             if len(args) == 2:
                 space_name = args[1]
-                space = create_deployment_space(client, 
-                    infos["cos_crn"], infos["wml_name"], infos["wml_crn"], space_name
+                space = create_deployment_space(
+                    client,
+                    infos["cos_crn"],
+                    infos["wml_name"],
+                    infos["wml_crn"],
+                    space_name,
                 )
 
             elif len(args) > 2:
                 space_name = args[1]
                 description = args[2]
-                space = create_deployment_space(client, 
+                space = create_deployment_space(
+                    client,
                     infos["cos_crn"],
                     infos["wml_name"],
                     infos["wml_crn"],
