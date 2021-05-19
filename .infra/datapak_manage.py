@@ -59,7 +59,6 @@ def create_deployment_space(
     space_details = client.spaces.store(meta_props=metadata)  # Create a space
     return space_details
 
-
 def update_deployment_space(client, new_name, space_id):
 
     metadata = {client.spaces.ConfigurationMetaNames.NAME: new_name}
@@ -72,11 +71,9 @@ def delete_deployment_space(client, space_id):
 
     client.spaces.delete(space_id)
 
-
 def list_deployment_space(client):
     spaces = client.spaces.list()
     print(spaces)
-
 
 def describe_deployment_space(client, space_id):
     info = client.spaces.get_details(space_id)
