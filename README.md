@@ -13,7 +13,7 @@ MLOps pipeline with DVC and CML using Github Actions and IBM Cloud
 - [X] CML: Continuous Machine Learning and Github Actions
 - [X] Deploy on release: Github Actions and IBM Watson
 - [ ] Monitoring: OpenScale
-- [ ] Infrastructure-as-a-code: Terraform script
+- [X] Infrastructure-as-a-code: Terraform script
 
 ## 📋 Requirements
 
