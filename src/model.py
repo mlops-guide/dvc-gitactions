@@ -43,7 +43,15 @@ def train(data, num_estimators, isDataFrame=False):
     pipe = Pipeline(
         [
             ("scaler", StandardScaler()),
-            ("LR", LogisticRegression(random_state=0, max_iter=num_estimators)),
+            (
+                "RFC",
+                RandomForestClassifier(
+                    criterion="gini",
+                    max_depth=10,
+                    max_features="auto",
+                    n_estimators=num_estimators,
+                ),
+            ),
         ]
     )
 
