@@ -40,7 +40,7 @@ def terraform_output(terraform_path=TERRAFORM_OUTPUT):
 
 
 def create_deployment_space(
-    cos_crn, wml_name, wml_crn, space_name="default", description=""
+    client, cos_crn, wml_name, wml_crn, space_name="default", description=""
 ):
 
     metadata = {
@@ -60,7 +60,7 @@ def create_deployment_space(
     return space_details
 
 
-def update_deployment_space(new_name, space_id):
+def update_deployment_space(client, new_name, space_id):
 
     metadata = {client.spaces.ConfigurationMetaNames.NAME: new_name}
 
@@ -68,17 +68,17 @@ def update_deployment_space(new_name, space_id):
     return space_details
 
 
-def delete_deployment_space(space_id):
+def delete_deployment_space(client, space_id):
 
     client.spaces.delete(space_id)
 
 
-def list_deployment_space():
+def list_deployment_space(client):
     spaces = client.spaces.list()
     print(spaces)
 
 
-def describe_deployment_space(space_id):
+def describe_deployment_space(client, space_id):
     info = client.spaces.get_details(space_id)
     pprint(info)
 
@@ -113,13 +113,18 @@ if __name__ == "__main__":
             if len(args) == 2:
                 space_name = args[1]
                 space = create_deployment_space(
-                    infos["cos_crn"], infos["wml_name"], infos["wml_crn"], space_name
+                    client,
+                    infos["cos_crn"],
+                    infos["wml_name"],
+                    infos["wml_crn"],
+                    space_name,
                 )
 
             elif len(args) > 2:
                 space_name = args[1]
                 description = args[2]
                 space = create_deployment_space(
+                    client,
                     infos["cos_crn"],
                     infos["wml_name"],
                     infos["wml_crn"],
@@ -137,7 +142,7 @@ if __name__ == "__main__":
             except:
                 raise Exception("Missing arguments")
 
-            space = update_deployment_space(new_name, space_id)
+            space = update_deployment_space(client, new_name, space_id)
             pprint(space)
 
         elif action == "delete":
@@ -146,10 +151,10 @@ if __name__ == "__main__":
             except:
                 raise Exception("Missing space_id")
 
-            delete_deployment_space(space_id)
+            delete_deployment_space(client, space_id)
 
         elif action == "list":
-            list_deployment_space()
+            list_deployment_space(client)
 
         elif action == "describe":
 
@@ -158,7 +163,7 @@ if __name__ == "__main__":
             except:
                 raise Exception("Missing space_id")
 
-            describe_deployment_space(space_id)
+            describe_deployment_space(client, space_id)
 
         else:
             help()
